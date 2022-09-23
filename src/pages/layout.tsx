@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
-import Header from "../components/header";
-import {CssBaseline} from "@mui/material";
+import Header from "../components/header/header";
+import {Container, CssBaseline} from "@mui/material";
 import {Outlet} from "react-router-dom";
 
 const Layout: FC = () => {
@@ -8,7 +8,9 @@ const Layout: FC = () => {
     <>
       <CssBaseline/>
       <Header/>
-      <Outlet/>
+      <Container sx={{pt: "25px"}}>
+        <Outlet/>
+      </Container>
     </>
   );
 };
