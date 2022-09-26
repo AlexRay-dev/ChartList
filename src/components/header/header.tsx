@@ -1,21 +1,14 @@
 import React, {FC} from 'react';
-import {AppBar, Container, styled, Toolbar} from "@mui/material";
-import {Link} from "react-router-dom";
-
-const StyledHeaderLink = styled(Link)(() => ({
-  color: "white",
-  textDecoration: "none",
-  "&:not(:last-child)": {marginRight: "25px"},
-  "&:hover": {textDecoration: 'underline'}
-}))
+import {AppBar, Container, Toolbar} from "@mui/material";
+import { StyledNavLink } from './styles';
 
 const Header: FC = () => {
   return (
-    <AppBar position={"static"}>
-      <Toolbar>
-        <Container >
-          <StyledHeaderLink to="/">View mode</StyledHeaderLink>
-          <StyledHeaderLink to="/settings">Settings</StyledHeaderLink>
+    <AppBar position="static">
+      <Toolbar disableGutters>
+        <Container>
+          <StyledNavLink style={({ isActive }) => ({ textDecoration: isActive ? "underline" : "none" })} to="/view-mode">View mode</StyledNavLink>
+          <StyledNavLink style={({ isActive }) => ({ textDecoration: isActive ? "underline" : "none" })} to="/settings">Settings</StyledNavLink>
         </Container>
       </Toolbar>
     </AppBar>
@@ -23,5 +16,3 @@ const Header: FC = () => {
 };
 
 export default Header;
-
-

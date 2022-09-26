@@ -39,7 +39,7 @@ const options: Highcharts.Options = {
       ]
     },
     {
-      type: 'line',
+      type: 'column',
       name: "line 2",
       data: [
         {
@@ -76,16 +76,16 @@ const ViewMode: FC = (props: HighchartsReact.Props) => {
 
 export default ViewMode;
 
-
-export const API_KEY = "?key=7ba0ed9bf9a04bfd881eddc00716079a";
-export const API_URL = `https://api.rawg.io/api`
-const fetchGameList = async () => {
-  try {
-    const {data} = await axios.get(`${API_URL}/games${API_KEY}&page_size=1000`);
-    console.log(data.results)
-    return data.results
-  } catch (e) {
-    console.log(e)
-    return []
-  }
-}
+//
+// export const API_KEY = "?key=7ba0ed9bf9a04bfd881eddc00716079a";
+// export const API_URL = `https://api.rawg.io/api`
+// const fetchGameList = async () => {
+//   try {
+//     const {data} = await axios.get(`${API_URL}/games${API_KEY}&page_size=1000`);
+//     console.log(data.results)
+//     return data.results
+//   } catch (e) {
+//     console.log(e)
+//     return []
+//   }
+// }

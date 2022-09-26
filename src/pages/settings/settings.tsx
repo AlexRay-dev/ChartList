@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import ChartList from "../components/chart-list";
+import ChartList from "./chart-list";
 
 const Settings: FC = () => {
   return (

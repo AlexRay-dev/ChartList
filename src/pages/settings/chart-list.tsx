@@ -1,25 +1,19 @@
 import React, {FC, useState} from 'react';
-import {
-  Stack,
-  Table,
-  TableBody,
-  TableContainer,
-  TableHead,
-  TableRow, Typography,
-} from "@mui/material";
+import {Stack, Table, TableBody, TableContainer, TableHead, TableRow, Typography,} from "@mui/material";
 import ChartItem from "./chart-item";
 import AddIcon from '@mui/icons-material/Add';
-import {StyledFab} from "../shared/ui/styled-components/styled-fab";
-import {StyledButton} from "../shared/ui/styled-components/styled-button";
-import {StyledTableCell} from "../shared/ui/styled-components/styled-table-cell";
-import Popup from "./popup";
+import {StyledFab} from "../../shared/ui/styled-components/styled-fab";
+import {StyledButton} from "../../shared/ui/styled-components/styled-button";
+import Popup from "../../components/popup/popup";
+import {StyledTableHeadCell} from './styles';
+import {POPUP} from "../../components/popup/interface";
 
 const ChartList: FC = () => {
   const [isOpenAddChartModal, setIsOpenAddChartModal] = useState(false)
 
   return (
     <>
-      <Stack flexDirection="row" alignItems="center" justifyContent="space-between">
+      <Stack flexDirection="row" alignItems="center" justifyContent="space-between" pb={2}>
         <Typography variant="h4">Chart list</Typography>
 
         <StyledButton
@@ -41,10 +35,10 @@ const ChartList: FC = () => {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <StyledTableCell align="left">Title</StyledTableCell>
-              <StyledTableCell align="left">Type</StyledTableCell>
-              <StyledTableCell align="left">Color</StyledTableCell>
-              <StyledTableCell align="right">Options</StyledTableCell>
+              <StyledTableHeadCell align="left">Title</StyledTableHeadCell>
+              <StyledTableHeadCell align="left">Type</StyledTableHeadCell>
+              <StyledTableHeadCell align="left">Color</StyledTableHeadCell>
+              <StyledTableHeadCell align="right">Options</StyledTableHeadCell>
             </TableRow>
           </TableHead>
 
@@ -56,7 +50,7 @@ const ChartList: FC = () => {
         </Table>
       </TableContainer>
 
-      <Popup isOpen={isOpenAddChartModal} setIsOpen={setIsOpenAddChartModal} type={"save"}/>
+      <Popup isOpen={isOpenAddChartModal} setIsOpen={setIsOpenAddChartModal} type={POPUP.ADD_CHART}/>
     </>
   );
 };
