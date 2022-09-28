@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {FC, useState} from 'react';
 import {
   Button, Dialog,
   DialogActions,
@@ -9,21 +9,36 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Popup from "../../components/popup/popup";
-import { StyledTableCell } from './styles';
+import {StyledTableCell} from './styles';
 import {POPUP} from "../../components/popup/interface";
+import {ColorType} from "highcharts";
+import {useTypedDispatch} from "../../hooks/redux";
+import {removeChart} from "../../store/reducers/chartListSlice/chartListSlice";
 
-const ChartItem = () => {
-  const [isOpenEditChartModal, setIsOpenEditChartModal] = useState(false)
-  const [isRemoveDialogOpen, setIsRemoveDialogOpen] = useState(false)
+interface ChartItemProps {
+  type: string | undefined,
+  name: string | undefined,
+  color: ColorType | undefined,
+  id: string | undefined,
+}
+
+const ChartItem: FC<ChartItemProps> = ({name, type, color, id}) => {
+  const [isOpenEditChartModal, setIsOpenEditChartModal] = useState(false);
+  const [isRemoveDialogOpen, setIsRemoveDialogOpen] = useState(false);
+  const dispatch = useTypedDispatch();
+
+  const removeChartHandler = () => {
+    dispatch(removeChart(id))
+  }
 
   return (
     <>
       <TableRow sx={{'&:last-child td, &:last-child th': {border: 0}}}>
-        <StyledTableCell align="left">Chart 1</StyledTableCell>
-        <StyledTableCell align="left">Line</StyledTableCell>
-        <StyledTableCell align="left">Gray</StyledTableCell>
+        <StyledTableCell align="left">{name}</StyledTableCell>
+        <StyledTableCell align="left">{type}</StyledTableCell>
+        <StyledTableCell align="left">{String(color)}</StyledTableCell>
         <StyledTableCell align="right">
-          <IconButton size="small"  onClick={() => setIsOpenEditChartModal(true)}>
+          <IconButton size="small" onClick={() => setIsOpenEditChartModal(true)}>
             <EditIcon/>
           </IconButton>
 
@@ -44,11 +59,11 @@ const ChartItem = () => {
 
         <DialogActions>
           <Button onClick={() => setIsRemoveDialogOpen(false)}>Cansel</Button>
-          {/*<Button onClick={removeChartHandler}>Delete</Button>*/}
+          <Button onClick={removeChartHandler}>Delete</Button>
         </DialogActions>
       </Dialog>
 
-      <Popup isOpen={isOpenEditChartModal} setIsOpen={setIsOpenEditChartModal} type={POPUP.EDIT_CHART}/>
+      <Popup isOpen={isOpenEditChartModal} setIsOpen={setIsOpenEditChartModal} type={POPUP.EDIT_CHART} id={id}/>
     </>
   );
 };

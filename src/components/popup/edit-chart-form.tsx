@@ -1,17 +1,64 @@
-import React, {FC, useState} from 'react';
+import React, {Dispatch, FC, SetStateAction, useState} from 'react';
 import {Box, FormControl, InputLabel, MenuItem, Select, Stack, TextField} from "@mui/material";
-import {FormButton, FormItem, FormTitle } from './styles';
+import {FormButton, FormItem, FormTitle} from './styles';
+import {useTypedDispatch, useTypedSelector} from "../../hooks/redux";
+import {editChart} from "../../store/reducers/chartListSlice/chartListSlice";
+import {SeriesOptionsType} from "highcharts";
+import {CHART_COLORS, CHART_TYPES} from "../../shared/consts";
 
-const EditChartForm: FC = () => {
-  const [type, setType] = useState('')
+interface EditChartFormProps {
+  setIsOpen: Dispatch<SetStateAction<boolean>>,
+  id: string | undefined,
+}
+
+const EditChartForm: FC<EditChartFormProps> = ({setIsOpen, id}) => {
+  const {chartList} = useTypedSelector(state => state.chartListReducer);
+  const currentChart = chartList.find(chart => chart.id === id);
+  const [name, setName] = useState(currentChart?.name);
+  const [type, setType] = useState(currentChart?.type);
+  const [color, setColor] = useState(currentChart?.color);
+  const dispatch = useTypedDispatch();
+
+  if (!currentChart) return null
+
+  const submitHandler = () => {
+    const chartTemplate: SeriesOptionsType = {
+      // @ts-ignore
+      type: type,
+      name: name,
+      color: color,
+      id: currentChart.id,
+      // @ts-ignore
+      data: currentChart.data
+    }
+    dispatch(editChart(chartTemplate));
+    setIsOpen(false);
+  }
 
   return (
     <>
       <FormTitle variant="h5">Chart editing</FormTitle>
 
-      <Box component="form">
+      <Box onSubmit={submitHandler} component="form">
         <FormItem>
-          <TextField label="Title" variant="outlined" fullWidth/>
+          <TextField value={name} onChange={(e) => setName(e.target.value)} label="Title" variant="outlined" fullWidth/>
+        </FormItem>
+
+        <FormItem>
+          <FormControl fullWidth>
+            <InputLabel id="color-select-label">Color</InputLabel>
+            <Select
+              labelId="color-select-label"
+              id="color-select"
+              value={color}
+              label="Color"
+              onChange={(e) => setColor(e.target.value)}
+            >
+              {CHART_COLORS.map((color) =>
+                <MenuItem key={String(color)} value={String(color)}>{String(color)}</MenuItem>
+              )}
+            </Select>
+          </FormControl>
         </FormItem>
 
         <FormItem>
@@ -22,34 +69,18 @@ const EditChartForm: FC = () => {
               id="type-select"
               value={type}
               label="Type"
+              // @ts-ignore
               onChange={(e) => setType(e.target.value)}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
-        </FormItem>
-
-        <FormItem>
-          <FormControl fullWidth>
-            <InputLabel id="color-select-label">Color</InputLabel>
-            <Select
-              labelId="color-select-label"
-              id="color-select"
-              value={type}
-              label="Color"
-              onChange={(e) => setType(e.target.value)}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              {CHART_TYPES.map((type) =>
+                <MenuItem key={type} value={type}>{type}</MenuItem>
+              )}
             </Select>
           </FormControl>
         </FormItem>
 
         <Stack>
-          <FormButton variant="contained">Save</FormButton>
+          <FormButton type={"submit"} variant="contained">Save</FormButton>
         </Stack>
       </Box>
     </>

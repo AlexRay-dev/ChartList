@@ -6,4 +6,5 @@ export interface PopupProps {
   isOpen: boolean,
   setIsOpen: any,
   type: POPUP,
+  id?: string,
 }

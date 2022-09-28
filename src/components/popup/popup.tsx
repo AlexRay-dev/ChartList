@@ -5,13 +5,13 @@ import AddChartForm from "./add-chart-form";
 import {PopupInner} from './styles';
 import {POPUP, PopupProps} from "./interface";
 
-const Popup: FC<PopupProps> = ({isOpen, setIsOpen, type}) => {
+const Popup: FC<PopupProps> = ({isOpen, setIsOpen, type, id}) => {
   const popupInner = () => {
     switch (type) {
       case POPUP.EDIT_CHART:
-        return <EditChartForm/>
+        return <EditChartForm setIsOpen={setIsOpen} id={id}/>
       case POPUP.ADD_CHART:
-        return <AddChartForm/>
+        return <AddChartForm setIsOpen={setIsOpen}/>
       default:
         return null
     }

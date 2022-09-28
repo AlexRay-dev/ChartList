@@ -7,9 +7,13 @@ import {StyledButton} from "../../shared/ui/styled-components/styled-button";
 import Popup from "../../components/popup/popup";
 import {StyledTableHeadCell} from './styles';
 import {POPUP} from "../../components/popup/interface";
+import {useTypedSelector} from "../../hooks/redux";
+import {selectChartList} from "../../store/reducers/chartListSlice/chartListSlice";
 
 const ChartList: FC = () => {
   const [isOpenAddChartModal, setIsOpenAddChartModal] = useState(false)
+  const {chartList} = useTypedSelector(selectChartList);
+  const isChartListEmpty = !!chartList.length;
 
   return (
     <>
@@ -43,9 +47,9 @@ const ChartList: FC = () => {
           </TableHead>
 
           <TableBody>
-            <ChartItem/>
-            <ChartItem/>
-            <ChartItem/>
+            {isChartListEmpty && chartList.map(({name, type, color, id}) => (
+              <ChartItem key={id} name={name} type={type} color={color} id={id}/>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
