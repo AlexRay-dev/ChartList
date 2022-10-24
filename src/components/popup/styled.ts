@@ -1,5 +1,5 @@
 import {Box, styled, Typography} from "@mui/material";
-import {StyledButton} from "../../shared/ui/styled-components/styled-button";
+import {StyledButton} from "../../core/ui/styled-components/styled-button";
 
 export const PopupInner = styled(Box)`
   position: absolute;
@@ -13,17 +13,17 @@ export const PopupInner = styled(Box)`
   @media (max-width: 700px) {
     padding: 20px 25px;
   }
-`
+`;
 export const FormItem = styled(Box)`
   margin-bottom: 12px
-`
+`;
 export const FormTitle = styled(Typography)`
   text-align: center; 
   margin-bottom: 20px;
-`
+`;
 export const FormButton = styled(StyledButton)`
   align-self: end; 
   max-width: 100px; 
   width: 100%;
   margin-top: 10px;
-`
+`;

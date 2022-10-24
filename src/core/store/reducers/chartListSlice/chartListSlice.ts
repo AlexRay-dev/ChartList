@@ -7,8 +7,8 @@ interface ChartListState {
 }
 
 const initialState: ChartListState = {
-  chartList: []
-}
+  chartList: [],
+};
 
 const chartListSlice = createSlice({
   name: "ChartList",

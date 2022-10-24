@@ -1,21 +1,21 @@
 import React, {Dispatch, FC, SetStateAction, useState} from 'react';
 import {Box, FormControl, InputLabel, MenuItem, Select, Stack, TextField} from "@mui/material";
-import {FormButton, FormItem, FormTitle} from './styles';
+import {FormButton, FormItem, FormTitle} from './styled';
 import {nanoid} from "nanoid";
-import {useTypedDispatch} from "../../hooks/redux";
-import {defaultSeriesRandomData} from "../../shared/chartListData";
-import {addChart} from "../../store/reducers/chartListSlice/chartListSlice";
+import {useTypedDispatch} from "../../core/hooks/redux";
+import {defaultSeriesRandomData} from "../../core/highcharts-options/chartListData";
+import {addChart} from "../../core/store/reducers/chartListSlice/chartListSlice";
 import {SeriesOptionsType} from "highcharts";
-import {CHART_COLORS, CHART_TYPES, DEFAULT_CHART_COLOR, DEFAULT_CHART_TYPE} from "../../shared/consts";
+import {CHART_COLORS, CHART_TYPES, DEFAULT_CHART_COLOR, DEFAULT_CHART_TYPE} from "../../core/consts/consts";
 
 interface AddChartFormProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
 const AddChartForm: FC<AddChartFormProps> = ({setIsOpen}) => {
-  const [name, setName] = useState('');
-  const [type, setType] = useState(DEFAULT_CHART_TYPE);
-  const [color, setColor] = useState(DEFAULT_CHART_COLOR);
+  const [name, setName] = useState<string>('');
+  const [type, setType] = useState<string>(DEFAULT_CHART_TYPE);
+  const [color, setColor] = useState<string>(DEFAULT_CHART_COLOR);
   const dispatch = useTypedDispatch();
 
   const clickHandler = () => {
@@ -25,8 +25,8 @@ const AddChartForm: FC<AddChartFormProps> = ({setIsOpen}) => {
       name: name,
       color: color,
       id: nanoid(8),
-      data: defaultSeriesRandomData()
-    }
+      data: defaultSeriesRandomData(),
+    };
     dispatch(addChart(chartTemplate));
     setIsOpen(false);
   }

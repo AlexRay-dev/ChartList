@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {AppBar, Container, Toolbar} from "@mui/material";
-import { StyledNavLink } from './styles';
+import { StyledNavLink } from './styled';
 
 const Header: FC = () => {
   return (

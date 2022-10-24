@@ -1,10 +1,10 @@
 import React, {Dispatch, FC, SetStateAction, useState} from 'react';
 import {Box, FormControl, InputLabel, MenuItem, Select, Stack, TextField} from "@mui/material";
-import {FormButton, FormItem, FormTitle} from './styles';
-import {useTypedDispatch, useTypedSelector} from "../../hooks/redux";
-import {editChart} from "../../store/reducers/chartListSlice/chartListSlice";
+import {FormButton, FormItem, FormTitle} from './styled';
+import {useTypedDispatch, useTypedSelector} from "../../core/hooks/redux";
+import {editChart} from "../../core/store/reducers/chartListSlice/chartListSlice";
 import {SeriesOptionsType} from "highcharts";
-import {CHART_COLORS, CHART_TYPES} from "../../shared/consts";
+import {CHART_COLORS, CHART_TYPES} from "../../core/consts/consts";
 
 interface EditChartFormProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>,
@@ -19,7 +19,7 @@ const EditChartForm: FC<EditChartFormProps> = ({setIsOpen, id}) => {
   const [color, setColor] = useState(currentChart?.color);
   const dispatch = useTypedDispatch();
 
-  if (!currentChart) return null
+  if (!currentChart) return null;
 
   const submitHandler = () => {
     const chartTemplate: SeriesOptionsType = {
@@ -30,7 +30,7 @@ const EditChartForm: FC<EditChartFormProps> = ({setIsOpen, id}) => {
       id: currentChart.id,
       // @ts-ignore
       data: currentChart.data
-    }
+    };
     dispatch(editChart(chartTemplate));
     setIsOpen(false);
   }
@@ -80,7 +80,7 @@ const EditChartForm: FC<EditChartFormProps> = ({setIsOpen, id}) => {
         </FormItem>
 
         <Stack>
-          <FormButton type={"submit"} variant="contained">Save</FormButton>
+          <FormButton type="submit" variant="contained">Save</FormButton>
         </Stack>
       </Box>
     </>

@@ -9,11 +9,11 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Popup from "../../components/popup/popup";
-import {StyledTableCell} from './styles';
+import {StyledTableCell} from './styled';
 import {POPUP} from "../../components/popup/interface";
 import {ColorType} from "highcharts";
-import {useTypedDispatch} from "../../hooks/redux";
-import {removeChart} from "../../store/reducers/chartListSlice/chartListSlice";
+import {useTypedDispatch} from "../../core/hooks/redux";
+import {removeChart} from "../../core/store/reducers/chartListSlice/chartListSlice";
 
 interface ChartItemProps {
   type: string | undefined,
@@ -28,8 +28,8 @@ const ChartItem: FC<ChartItemProps> = ({name, type, color, id}) => {
   const dispatch = useTypedDispatch();
 
   const removeChartHandler = () => {
-    dispatch(removeChart(id))
-  }
+    dispatch(removeChart(id));
+  };
 
   return (
     <>

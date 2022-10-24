@@ -2,16 +2,16 @@ import React, {FC, useState} from 'react';
 import {Stack, Table, TableBody, TableContainer, TableHead, TableRow, Typography,} from "@mui/material";
 import ChartItem from "./chart-item";
 import AddIcon from '@mui/icons-material/Add';
-import {StyledFab} from "../../shared/ui/styled-components/styled-fab";
-import {StyledButton} from "../../shared/ui/styled-components/styled-button";
+import {StyledFab} from "../../core/ui/styled-components/styled-fab";
+import {StyledButton} from "../../core/ui/styled-components/styled-button";
 import Popup from "../../components/popup/popup";
-import {StyledTableHeadCell} from './styles';
+import {StyledTableHeadCell} from './styled';
 import {POPUP} from "../../components/popup/interface";
-import {useTypedSelector} from "../../hooks/redux";
-import {selectChartList} from "../../store/reducers/chartListSlice/chartListSlice";
+import {useTypedSelector} from "../../core/hooks/redux";
+import {selectChartList} from "../../core/store/reducers/chartListSlice/chartListSlice";
 
 const ChartList: FC = () => {
-  const [isOpenAddChartModal, setIsOpenAddChartModal] = useState(false)
+  const [isOpenAddChartModal, setIsOpenAddChartModal] = useState<boolean>(false);
   const {chartList} = useTypedSelector(selectChartList);
   const isChartListEmpty = !!chartList.length;
 
@@ -21,7 +21,7 @@ const ChartList: FC = () => {
         <Typography variant="h4">Chart list</Typography>
 
         <StyledButton
-          variant={"contained"}
+          variant="contained"
           startIcon={<AddIcon/>}
           onClick={() => setIsOpenAddChartModal(true)}
           sx={{display: {"xs": "none", "sm": "flex"}, maxWidth: "180px"}}>

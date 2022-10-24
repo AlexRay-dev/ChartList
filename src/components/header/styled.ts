@@ -11,4 +11,4 @@ export const StyledNavLink = styled(NavLink)`
   &:hover {
     text-decoration: underline
   }
-`
+`;

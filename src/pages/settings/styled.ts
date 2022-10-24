@@ -7,8 +7,8 @@ export const StyledTableCell = styled(TableCell)`
   &:first-of-type {
     padding-left: 0;
   }
-`
+`;
 export const StyledTableHeadCell = styled(StyledTableCell)`
   font-size: 18px;
   font-weight: 600;
-`
+`;
